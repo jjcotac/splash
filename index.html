@@ -6,12 +6,13 @@
 </head>
 <body>
   <h2>Welcome! Please log in</h2>
-  <form id="loginForm" method="post" action="https://wu3t5cuxqu3ieohcjcoqlc2q7y0kkfcb.lambda-url.us-east-1.on.aws/?sip=$sip$&uamip=$uamip$&mac=$mac$"">
-    <input type="text" name="name" placeholder="Your Name" required><br>
+  <form id="loginForm" method="post" action="https://wu3t5cuxqu3ieohcjcoqlc2q7y0kkfcb.lambda-url.us-east-1.on.aws/">
     <input type="email" name="email" placeholder="Your Email" required><br>
 
     <!-- Hidden field to hold Ruckus AP IP -->
-    <input type="hidden" name="sip" value="{{sip}}">
+   <input type="hidden" name="sip" value="$sip$">
+    <input type="hidden" name="uamip" value="$uamip$">
+    <input type="hidden" name="mac" value="$mac$">
     <button type="submit">Connect</button>
   </form>
 </body>
