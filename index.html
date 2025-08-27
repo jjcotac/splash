@@ -1,51 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8"/>
-  <title>Welcome — Guest Wi-Fi</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <style>
-    body { font-family: Arial, sans-serif; padding:24px; text-align:center; }
-    .box { max-width:420px; margin:30px auto; border-radius:10px; padding:20px; border:1px solid #ddd; }
-    input, button { width:90%; padding:10px; margin:8px 0; border-radius:6px; border:1px solid #ccc; font-size:14px; }
-    button { cursor:pointer; background:#1976d2; color:white; border:none; }
-    small { color:#666; display:block; margin-top:8px; }
-  </style>
+  <meta charset="utf-8">
+  <title>Guest WiFi Login</title>
 </head>
 <body>
-  <div class="box">
-    <h2>Welcome — Guest Wi-Fi</h2>
-    <p>Please enter your name and email to get internet access.</p>
+  <h2>Welcome! Please log in</h2>
+  <form id="loginForm" method="post" action="https://effervescent-rolypoly-988509.netlify.app/.netlify/functions/submit">
+    <input type="text" name="name" placeholder="Your Name" required><br>
+    <input type="email" name="email" placeholder="Your Email" required><br>
 
-    <!-- POSTs to Apps Script Web App -->
-    <form id="guestForm" method="post" action="https://script.google.com/macros/s/AKfycbykEuqWwyFMAC_45TGGWqe-yYIopVihQdqnkJSaCM7fRd4j8iPTR5URyA5nE7joNATL/exec">
-      <input name="name" type="text" placeholder="Your full name" required />
-      <input name="email" type="email" placeholder="Email address" required />
-      <!-- hidden fields filled from the URL query string injected by Ruckus -->
-      <input type="hidden" name="sip" id="sip"/>
-      <input type="hidden" name="mac" id="mac"/>
-      <input type="hidden" name="apmac" id="apmac"/>
-      <input type="hidden" name="ssid" id="ssid"/>
-      <button type="submit">Get Internet</button>
-      <small>By connecting you accept terms and conditions.</small>
-    </form>
-  </div>
+    <!-- Hidden field to hold Ruckus AP IP -->
+    <input type="hidden" name="sip" id="sip">
+
+    <button type="submit">Connect</button>
+  </form>
 
   <script>
-    // VERY small helper: read query string and populate hidden fields
-    (function(){
-      function qs() {
-        var s = location.search.substring(1).split('&'), q={};
-        for(var i=0;i<s.length;i++){ if(!s[i]) continue; var p = s[i].split('='); q[decodeURIComponent(p[0])] = decodeURIComponent(p[1]||''); }
-        return q;
-      }
-      var p = qs();
-      if(p.sip) document.getElementById('sip').value = p.sip;
-      if(p.mac) document.getElementById('mac').value = p.mac;
-      if(p.client_mac) document.getElementById('mac').value = p.client_mac;
-      if(p.apmac) document.getElementById('apmac').value = p.apmac;
-      if(p.ssid) document.getElementById('ssid').value = p.ssid;
-    })();
+    // Grab 'sip' (AP IP) from URL parameters
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById("sip").value = params.get("sip") || "192.168.1.2";
   </script>
 </body>
 </html>
