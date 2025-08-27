@@ -1,19 +1,24 @@
-<!DOCTYPE html>
+<?php
+
+$submitUrl = "http://" . $_GET['sip'] . ":9997/login";
+
+?>
+
+<!doctype html>
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Guest WiFi Login</title>
+  <title>WiFi Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 <body>
-  <h2>Welcome! Please log in</h2>
-  <form id="loginForm" method="post" action="https://wu3t5cuxqu3ieohcjcoqlc2q7y0kkfcb.lambda-url.us-east-1.on.aws/">
-    <input type="email" name="email" placeholder="Your Email" required><br>
+	<p>Welcome!<br>
+	Please login to our Wifi service</p>
 
-    <!-- Hidden field to hold Ruckus AP IP -->
-   <input type="hidden" name="sip" value="$sip$">
-    <input type="hidden" name="uamip" value="$uamip$">
-    <input type="hidden" name="mac" value="$mac$">
-    <button type="submit">Connect</button>
-  </form>
+	<form method="POST" action="<?php echo htmlspecialchars($submitUrl); ?>">
+	<label>User Name: <input type="text" name="username"></label><br/>
+	<label>Password: <input type="text" name="password"></label><br/>
+	<input type="submit">
+	</form>
 </body>
 </html>
