@@ -12,14 +12,8 @@
 
     <!-- Hidden field to hold Ruckus AP IP -->
     <input type="hidden" name="sip" id="sip">
-
+    <input type="hidden" name="sip" value="{{sip}}">
     <button type="submit">Connect</button>
   </form>
-
-  <script>
-    // Grab 'sip' (AP IP) from URL parameters
-    const params = new URLSearchParams(window.location.search);
-    document.getElementById("sip").value = params.get("name") || "192.168.1.2";
-  </script>
 </body>
 </html>
